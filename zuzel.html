@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<img id="plansza" src="zzz.jpg" alt="Tfsfm" width="600" height="300" style="margin-left:-800px">
+<canvas id="myCanvas" width="600" height="300" style="border:1px solid #d3d3d3;margin-left:200px ">
+
+<script>
+			
+document.getElementById("plansza").onload = function() {
+document.addEventListener("keydown", onKeyDown, false)
+var y = 260
+var x = 300
+var alfa=0;
+var R=1;
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    var img = document.getElementById("plansza");
+    ctx.drawImage(img, 0, 0);
+    setInterval(function(){ 
+
+
+	ctx.beginPath();
+		ctx.moveTo(x,y);
+
+		x=x+R*Math.cos(alfa);
+				y=y+R*Math.sin(alfa);
+		
+		colision(x,y)
+	ctx.lineTo(x,y);
+	//console.log(r+"-"+g+"-"+b)
+	ctx.strokeStyle="rgb(218,35,35)"
+	ctx.stroke()
+
+	
+}, 10)
+
+function onKeyDown(event) {
+		alfa-=0.05;
+				}
+				
+
+
+function colision(o,p){
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var imgData = ctx.getImageData(o, p, 0.1, 0.1);
+var r = imgData.data[0];
+var g = imgData.data[1];
+var b = imgData.data[2];
+
+console.log(r + " " + g + " " + b )
+if((r ==0&&g==0&&b==0)||((r <= 10 && g<=10 && b<=10)&&( g>2 || r>2 ||b>2 ))){
+	alert("koniec");location.reload();}
+}
+}
+</script>
+
+
+</body>
+</html>
